@@ -32,7 +32,9 @@ public class Grid {
   }
   
   public void initBlocks() {
-    // YOU WRITE THIS
+    for(int col = 0; col < COLS; col++)
+      for(int row = 0; row < ROWS; row++)
+        setBlock(col,row,0);
   }
   
   public boolean isValid(int col, int row) {
@@ -41,11 +43,14 @@ public class Grid {
   }
   
   public void swap(int col1, int row1, int col2, int row2) {
-    // YOU WRITE THIS
+    Block temp = block[col1][row1];
+    block [col1][row1] = block[col2][row2];
+    block [col2][row2] = temp;
   }
   
   public boolean canMerge(int col1, int row1, int col2, int row2) {
-    // YOU WRITE THIS
+    if(block[col1][row1].getValue() == block[col2][row2].getValue())
+      return true;
     return false; // stub
   }
   
