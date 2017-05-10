@@ -98,17 +98,53 @@ public class Grid {
     Location l = selectLocation(loc);
     
     if((int) 8 * Math.random() <= 7)
-      block[l.getCol()][l.getRow()] = new Block(2, false);
+      block[l.getCol()][l.getRow()].setValue(2);
     else
-      block[l.getCol()][l.getRow()] = new Block(4, false);
+      block[l.getCol()][l.getRow()].setValue(4);
     
       
   }
   
   // Are there any adjacent blocks that contain the same value?
   public boolean hasCombinableNeighbors() {
-    // YOU WRITE THIS
-    return false; // stub
+    for (int col = 0; col < COLS; col++){
+      for (int row = 0; row < ROWS; row++){
+        if(row == 0){
+          if(col == 0){
+            if ((block[col][row].getValue() == block[col+1][row].getValue()) || (block[col][row].getValue() == block[col][row-1].getValue()))
+              return true;
+          }else if(col == COLS){
+            if (((block[col][row].getValue() == block[col-1][row].getValue()) || (block[col][row].getValue() == block[col][row-1].getValue()))
+              return true;
+          }else{
+            if((block[col][row].getValue() == block[col+1][row].getValue()) || (block[col][row].getValue() == block[col][row-1].getValue()) || (block[col][row].getValue() == block[col-1][row].getValue()))
+              return true;
+          }
+        }else if(col == 0){
+          if(row == ROWS)
+            if((block[col][row].getValue() == block[col+1][row].getValue()) || (block[col][row].getValue() == block[col][row-1].getValue()))
+              return true;
+          else
+            if((block[col][row].getValue() == block[col+1][row].getValue()) || (block[col][row].getValue() == block[col][row-1].getValue()) || (block[col][row].getValue() == block[col][row+1].getValue()))
+              return true;
+          
+       }else if(col == COLS){
+         if(row == ROWS)
+           if((block[col][row].getValue() == block[col][row+1].getValue()) || (block[col][row].getValue() == block[col-1][row].getValue()))
+             return true;
+         else
+           if((block[col][row].getValue() == block[col-1][row].getValue()) || (block[col][row].getValue() == block[col][row+1].getValue()) || (block[col][row].getValue() == block[col][row-1].getValue()))
+             return true;
+       }else if(row == ROWS){
+         if((block[col][row].getValue() == block[col-1][row].getValue()) || (block[col][row].getValue() == block[col][row+1].getValue()) || (block[col][row].getValue() == block[col+1][row].getValue())
+           return true;
+      }else{
+        if((block[col][row].getValue() == block[col-1][row].getValue()) || (block[col][row].getValue() == block[col][row+1].getValue()) || (block[col][row].getValue() == block[col+1][row].getValue()) || (block[col][row].getValue() == block[col][row -1].getValue()))
+          return true;
+        }
+      }
+    }
+     return false; // stub
   }
    
   // Notice how an enum can be used as a data type
