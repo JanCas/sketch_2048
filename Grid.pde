@@ -114,7 +114,7 @@ public class Grid {
             if ((block[col][row].getValue() == block[col+1][row].getValue()) || (block[col][row].getValue() == block[col][row-1].getValue()))
               return true;
           }else if(col == COLS){
-            if (((block[col][row].getValue() == block[col-1][row].getValue()) || (block[col][row].getValue() == block[col][row-1].getValue()))
+            if (((block[col][row].getValue() == block[col-1][row].getValue()) || (block[col][row].getValue() == block[col][row-1].getValue())))
               return true;
           }else{
             if((block[col][row].getValue() == block[col+1][row].getValue()) || (block[col][row].getValue() == block[col][row-1].getValue()) || (block[col][row].getValue() == block[col-1][row].getValue()))
@@ -136,7 +136,7 @@ public class Grid {
            if((block[col][row].getValue() == block[col-1][row].getValue()) || (block[col][row].getValue() == block[col][row+1].getValue()) || (block[col][row].getValue() == block[col][row-1].getValue()))
              return true;
        }else if(row == ROWS){
-         if((block[col][row].getValue() == block[col-1][row].getValue()) || (block[col][row].getValue() == block[col][row+1].getValue()) || (block[col][row].getValue() == block[col+1][row].getValue())
+         if((block[col][row].getValue() == block[col-1][row].getValue()) || (block[col][row].getValue() == block[col][row+1].getValue()) || (block[col][row].getValue() == block[col+1][row].getValue()))
            return true;
       }else{
         if((block[col][row].getValue() == block[col-1][row].getValue()) || (block[col][row].getValue() == block[col][row+1].getValue()) || (block[col][row].getValue() == block[col+1][row].getValue()) || (block[col][row].getValue() == block[col][row -1].getValue()))
@@ -151,7 +151,25 @@ public class Grid {
   //
   // This is called ) method  the KeyEvents tab
   public boolean someBlockCanMoveInDirection(DIR dir) {
-    // YOU WRITE THIS
+    for (int col = 0; col < COLS; col++){
+      for (int row = 0; row < ROWS; row++){
+        switch(dir){
+          case South: 
+            if(row == 0)
+              return false;
+            else if(block[col][row-1].isEmpty())
+              return true;
+             else if(canMerge(col,row,col,row-1))
+               return true;
+              else
+                return false;
+              
+              break;
+            case West:
+              if(col == COLS)
+                return false;
+              else if(block[][]
+            
     return false; // stub
   }
   
