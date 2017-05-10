@@ -68,7 +68,7 @@ public class Grid {
   public boolean canPlaceBlock() {
     for(int col = 0; col < COLS; col++)
       for(int row = 0; row < ROWS; row++)
-        if(block[col][row].getValue() == 0)
+        if(block[col][row].isEmpty())
           return true;
     return false; // stub
   }
@@ -78,19 +78,30 @@ public class Grid {
     ArrayList<Location> locs = new ArrayList<Location>();
     for(int col = 0; col < COLS; col++)
       for(int row = 0; row < ROWS; row++)
-        if (block[col][row].getValue() == 0)
+        if (block[col][row].isEmpty())
           locs.add(new Location(col,row));
     return null; // stub
   }
   
   public Location selectLocation(ArrayList<Location> locs) {
-    // YOU WRITE THIS
-    return null; // stub
+    if (locs != null)
+      return locs.get((int) (locs.size() * Math.random()));
+    else
+      return null; // stub
   }
   
   // Randomly select an open location to place a block.
   public void placeBlock() {
-    // YOU WRITE THIS
+    ArrayList<Location> loc = new ArrayList<Location>();
+    loc = getEmptyLocations();
+    Location l = selectLocation(loc);
+    
+    if((int) 8 * Math.random() <= 7)
+      block[l.getCol()][l.getRow()] = new Block(2, false);
+    else
+      block[l.getCol()][l.getRow()] = new Block(4, false);
+    
+      
   }
   
   // Are there any adjacent blocks that contain the same value?
@@ -109,7 +120,10 @@ public class Grid {
   
   // Computes the number of points that the player has scored
   public void computeScore() {
-    // YOU WRITE THIS
+    score = 0;
+    for (int col = 0; col < COLS; col++)
+      for (int row = 0; row < ROWS; row++)
+        score += block[col][row].getValue();
   }
   
   public int getScore() {
