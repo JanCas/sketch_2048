@@ -162,8 +162,7 @@ public class Grid {
   }
   
   public boolean isGameOver() {
-    // YOU WRITE THIS
-    return false; // stub
+    return canPlaceBlock() ? false : true;
   }
   
   public void showGameOver() {
