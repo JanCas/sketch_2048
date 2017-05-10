@@ -37,17 +37,19 @@ public class Grid {
         setBlock(col,row,0);
   }
   
+  //checks if the values are valid
   public boolean isValid(int col, int row) {
-    // YOU WRITE THIS
-    return false; // stub
+    return (0 <=  row) && (row <  ROWS) && (0 <= col) && (col < COLS) ? true : false;
   }
   
+  //swaps 2 blocks
   public void swap(int col1, int row1, int col2, int row2) {
     Block temp = block[col1][row1];
     block [col1][row1] = block[col2][row2];
     block [col2][row2] = temp;
   }
   
+  //checks if 2 block are the Same value
   public boolean canMerge(int col1, int row1, int col2, int row2) {
     if(block[col1][row1].getValue() == block[col2][row2].getValue())
       return true;
@@ -62,15 +64,22 @@ public class Grid {
     }
   }
  
-  // Is there an open space on the grid to place a new block?
+  //goes through the whole grid and checks if there is an open space
   public boolean canPlaceBlock() {
-    // YOU WRITE THIS
+    for(int col = 0; col < COLS; col++)
+      for(int row = 0; row < ROWS; row++)
+        if(block[col][row].getValue() == 0)
+          return true;
     return false; // stub
   }
   
   public ArrayList<Location> getEmptyLocations() {
     // Put all locations that are currently empty into locs
-    // YOU WRITE THIS
+    ArrayList<Location> locs = new ArrayList<Location>();
+    for(int col = 0; col < COLS; col++)
+      for(int row = 0; row < ROWS; row++)
+        if (block[col][row].getValue() == 0)
+          locs.add(new Location(col,row));
     return null; // stub
   }
   
