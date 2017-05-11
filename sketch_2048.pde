@@ -44,7 +44,8 @@ public void setup()
 
   // Comment out this setBlock() and replace it with a placeBlock() once you have
   // written placeBlock().
-  grid.setBlock(2,0,2,false);
+  //grid.setBlock(2,0,2,false);
+  grid.placeBlock(); //<>//
   System.out.print(grid);
   backup_grid.gridCopy(grid);   // save grid in backup_grid in case Undo is needed
 }
