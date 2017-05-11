@@ -148,48 +148,55 @@ public class Grid {
   //
   // This is called ) method  the KeyEvents tab
   public boolean someBlockCanMoveInDirection(DIR dir) {
+    boolean b = false;
     for (int col = 0; col < COLS; col++) {
       for (int row = 0; row < ROWS; row++) {
-        switch(dir) {
         
+        switch(dir) {
           case SOUTH: 
             if (row == 0)
-              return false;
+              b = false;
             else if (block[col][row-1].isEmpty()|| canMerge(col, row, col, row-1))
-              return true;
+              b = true;
           else
-            return false;
+            b = false;
             
+            break;
           case EAST:
           if (col == COLS)
-            return false;
+            b = false;
           else if (block[col-1][row].isEmpty() || canMerge(col, row, col-1, row))
-            return true;
+            b = true;
           else
-            return false;
-
+            b = false;
+          
+          break;
          case NORTH:
            if(row == 0)
-             return false;
+             b = false;
            else if (block[col][row+1].isEmpty() || canMerge(col, row, col, row+1))
-             return true;
+             b = true;
            else
-             return false;
-             
+             b = false;
+            
+             break;
           case WEST:
             if(col == 0)
-              return false;
+              b = false;
             else if(block[col-1][row].isEmpty() || canMerge(col, row, col-1, row))
-              return true;
+              b = true;
             else
-              return false;
+              b = false;
 
+          break;
           default:
-            return false;
+            b = false;
+            
+            break;
          }
         }
        }
-       return false;
+       return b;
       }
 
         // Computes the number of points that the player has scored
