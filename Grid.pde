@@ -147,8 +147,10 @@ public class Grid {
   // Notice how an enum can be used as a data type
   //
   // This is called ) method  the KeyEvents tab
+  //only checking for one block or checking for more??
   public boolean someBlockCanMoveInDirection(DIR dir) {
     boolean b = false;
+    //might not need for loop if only goign for one block
     for (int col = 0; col < COLS; col++) {
       for (int row = 0; row < ROWS; row++) {
         
