@@ -150,42 +150,48 @@ public class Grid {
   //only checking for one block or checking for more??
   public boolean someBlockCanMoveInDirection(DIR dir) {
     boolean b = false;
+   ArrayList<Location> loc = new ArrayList<Location>();
     //might not need for loop if only goign for one block
     for (int col = 0; col < COLS; col++) {
       for (int row = 0; row < ROWS; row++) {
-        
+        if(!block[col][row].isEmpty())
+          loc.add(new Location(col, row));
+      }
+    }
+    
+    for(Location l : loc){
         switch(dir) {
           case SOUTH: 
-            if (row == 0)
+            if (l.getRow() == ROWS-1)
               b = false;
-            else if (block[col][row-1].isEmpty()|| canMerge(col, row, col, row-1))
+            else if (isValid(l.getCol(), l.getRow()-1) && (canMerge(l.getCol(), l.getRow(), l.getCol(), l.getRow()-1) || block[l.getCol()][l.getRow()-1].isEmpty()))
               b = true;
           else
             b = false;
             
             break;
           case EAST:
-          if (col == COLS)
+          if (l.getCol() == COLS-1)
             b = false;
-          else if (block[col-1][row].isEmpty() || canMerge(col, row, col-1, row))
+          else if (isValid(l.getCol()-1, l.getRow()) && (block[l.getCol()-1][l.getRow()].isEmpty() || canMerge(l.getCol(), l.getRow(), l.getCol()-1, l.getRow())))
             b = true;
           else
             b = false;
           
           break;
          case NORTH:
-           if(row == 0)
+           if(l.getRow() == 0)
              b = false;
-           else if (block[col][row+1].isEmpty() || canMerge(col, row, col, row+1))
+           else if (isValid(l.getCol(),l.getRow()+1) && (block[l.getCol()][l.getRow()+1].isEmpty() || canMerge(l.getCol(), l.getRow(), l.getCol(), l.getRow()+1)))
              b = true;
            else
              b = false;
             
              break;
           case WEST:
-            if(col == 0)
+            if(l.getCol() == 0)
               b = false;
-            else if(block[col-1][row].isEmpty() || canMerge(col, row, col-1, row))
+            else if(isValid(l.getCol()-1, l.getRow()) && (block[l.getCol()-1][l.getRow()].isEmpty() || canMerge(l.getCol(), l.getRow(), l.getCol()-1, l.getRow())))
               b = true;
             else
               b = false;
@@ -195,7 +201,6 @@ public class Grid {
             b = false;
             
             break;
-         }
         }
        }
        return b;
