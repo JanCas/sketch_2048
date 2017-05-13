@@ -105,40 +105,44 @@ public class Grid {
 
   // Are there any adjacent blocks that contain the same value?
   public boolean hasCombinableNeighbors() { //<>//
+    boolean b = false;
     for (int col = 0; col < COLS; col++) {
       for (int row = 0; row < ROWS; row++) {
         if (row == 0) {
           if (col == 0) {
             if ((block[col][row].getValue() == block[col+1][row].getValue()) || (block[col][row].getValue() == block[col][row-1].getValue()))
-              return true;
+              b = true;
           } else if (col == COLS) {
             if (((block[col][row].getValue() == block[col-1][row].getValue()) || (block[col][row].getValue() == block[col][row-1].getValue())))
-              return true;
+              b = true;
           } else {
             if ((block[col][row].getValue() == block[col+1][row].getValue()) || (block[col][row].getValue() == block[col][row-1].getValue()) || (block[col][row].getValue() == block[col-1][row].getValue()))
-              return true;
+              b = true;
           }
         } else if (col == 0) {
           if (row == ROWS)
             if ((block[col][row].getValue() == block[col+1][row].getValue()) || (block[col][row].getValue() == block[col][row-1].getValue()))
-              return true;
+              b = true;
             else
               if ((block[col][row].getValue() == block[col+1][row].getValue()) || (block[col][row].getValue() == block[col][row-1].getValue()) || (block[col][row].getValue() == block[col][row+1].getValue()))
-                return true;
+                b = true;
         } else if (col == COLS) {
           if (row == ROWS)
             if ((block[col][row].getValue() == block[col][row+1].getValue()) || (block[col][row].getValue() == block[col-1][row].getValue()))
-              return true;
+              b = true;
             else
               if ((block[col][row].getValue() == block[col-1][row].getValue()) || (block[col][row].getValue() == block[col][row+1].getValue()) || (block[col][row].getValue() == block[col][row-1].getValue()))
-                return true;
+                b = true;
         } else if (row == ROWS) {
           if ((block[col][row].getValue() == block[col-1][row].getValue()) || (block[col][row].getValue() == block[col][row+1].getValue()) || (block[col][row].getValue() == block[col+1][row].getValue()))
-            return true;
+            b = true;
         } else {
           if ((block[col][row].getValue() == block[col-1][row].getValue()) || (block[col][row].getValue() == block[col][row+1].getValue()) || (block[col][row].getValue() == block[col+1][row].getValue()) || (block[col][row].getValue() == block[col][row -1].getValue()))
-            return true;
+            b = true;
         }
+        
+        if(b)
+          return b;
       }
     }
     return false; // stub
@@ -256,7 +260,7 @@ public class Grid {
         }
 
         public boolean isGameOver() {
-          return canPlaceBlock() ? false : true;
+          return canPlaceBlock() && hasCombinableNeighbors() ? false : true;
         }
 
         public void showGameOver() {
