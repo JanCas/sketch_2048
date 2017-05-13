@@ -204,6 +204,9 @@ public class Grid {
             
             break;
         }
+        
+        if(b)
+          return b;
        }
        return b;
       }
