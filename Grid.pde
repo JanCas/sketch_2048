@@ -93,18 +93,18 @@ public class Grid {
 
   // Randomly select an open location to place a block.
   public void placeBlock() {
-    ArrayList<Location> loc = new ArrayList<Location>(); //<>//
-    loc = getEmptyLocations(); //<>//
-    Location l = selectLocation(loc); //<>//
+    ArrayList<Location> loc = new ArrayList<Location>();
+    loc = getEmptyLocations();
+    Location l = selectLocation(loc);
 
     if ((int) 8 * Math.random() <= 7)
-      block[l.getCol()][l.getRow()].setValue(2); //<>//
+      block[l.getCol()][l.getRow()].setValue(2);
     else
-      block[l.getCol()][l.getRow()].setValue(4); //<>//
+      block[l.getCol()][l.getRow()].setValue(4);
   }
 
   // Are there any adjacent blocks that contain the same value?
-  public boolean hasCombinableNeighbors() {
+  public boolean hasCombinableNeighbors() { //<>//
     for (int col = 0; col < COLS; col++) {
       for (int row = 0; row < ROWS; row++) {
         if (row == 0) {
@@ -148,19 +148,21 @@ public class Grid {
   //
   // This is called ) method  the KeyEvents tab
   //only checking for one block or checking for more??
-  public boolean someBlockCanMoveInDirection(DIR dir) {
-    boolean b = false;
+  public boolean someBlockCanMoveInDirection(DIR dir) { //<>//
+   boolean b = false; //<>//
    ArrayList<Location> loc = new ArrayList<Location>();
     //might not need for loop if only goign for one block
     for (int col = 0; col < COLS; col++) {
       for (int row = 0; row < ROWS; row++) {
         if(!block[col][row].isEmpty())
-          loc.add(new Location(col, row));
+          loc.add(new Location(col, row)); //<>//
       }
     }
     
-    for(Location l : loc){
-        switch(dir) {
+    //does not the check the whole row ol collum so it doesnt work. Also i cant have a boolean beacause then maybe the last value in the 
+    //ArrayList is not working
+    for(Location l : loc){ //<>//
+        switch(dir) { //<>//
           case SOUTH: 
             if (l.getRow() == ROWS-1)
               b = false;
@@ -170,7 +172,7 @@ public class Grid {
             b = false;
             
             break;
-          case EAST:
+          case EAST: //<>//
           if (l.getCol() == COLS-1)
             b = false;
           else if (isValid(l.getCol()-1, l.getRow()) && (block[l.getCol()-1][l.getRow()].isEmpty() || canMerge(l.getCol(), l.getRow(), l.getCol()-1, l.getRow())))
@@ -179,7 +181,7 @@ public class Grid {
             b = false;
           
           break;
-         case NORTH:
+         case NORTH: //<>//
            if(l.getRow() == 0)
              b = false;
            else if (isValid(l.getCol(),l.getRow()+1) && (block[l.getCol()][l.getRow()+1].isEmpty() || canMerge(l.getCol(), l.getRow(), l.getCol(), l.getRow()+1)))
@@ -188,7 +190,7 @@ public class Grid {
              b = false;
             
              break;
-          case WEST:
+          case WEST: //<>//
             if(l.getCol() == 0)
               b = false;
             else if(isValid(l.getCol()-1, l.getRow()) && (block[l.getCol()-1][l.getRow()].isEmpty() || canMerge(l.getCol(), l.getRow(), l.getCol()-1, l.getRow())))
