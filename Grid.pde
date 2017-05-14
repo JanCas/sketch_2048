@@ -51,10 +51,7 @@ public class Grid {
 
   //checks if 2 blocks are the Same value
   public boolean canMerge(int col1, int row1, int col2, int row2) {
-    if (block[col1][row1].getValue() == block[col2][row2].getValue())
-      return true;
-    else
-      return false; // stub
+    return (block[col1][row1].getValue() == block[col2][row2].getValue()) ? true : false;
   }
 
   public void clearChangedFlags() {
