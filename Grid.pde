@@ -122,67 +122,57 @@ public class Grid {
   // This is called ) method  the KeyEvents tab
   //only checking for one block or checking for more??
   public boolean someBlockCanMoveInDirection(DIR dir) { //<>//
-   boolean b = false; //<>//
-   ArrayList<Location> loc = new ArrayList<Location>();
-    //might not need for loop if only goign for one block
-    for (int col = 0; col < COLS; col++) {
-      for (int row = 0; row < ROWS; row++) {
-        if(!block[col][row].isEmpty())
-          loc.add(new Location(col, row)); //<>//
-      }
-    }
-    
-    //does not the check the whole row ol collum so it doesnt work. Also i cant have a boolean beacause then maybe the last value in the 
-    //ArrayList is not working
-    for(Location l : loc){ //<>//
-        switch(dir) { //<>//
-          case SOUTH: 
-            if (l.getRow() == ROWS-1)
-              b = false;
-            else if (isValid(l.getCol(), l.getRow()-1) && (canMerge(l.getCol(), l.getRow(), l.getCol(), l.getRow()-1) || block[l.getCol()][l.getRow()-1].isEmpty()))
-              b = true;
-          else
-            b = false;
-            
-            break;
-          case EAST: //<>//
-          if (l.getCol() == COLS-1)
-            b = false;
-          else if (isValid(l.getCol()-1, l.getRow()) && (block[l.getCol()-1][l.getRow()].isEmpty() || canMerge(l.getCol(), l.getRow(), l.getCol()-1, l.getRow())))
-            b = true;
-          else
-            b = false;
-          
-          break;
-         case NORTH: //<>//
-           if(l.getRow() == 0)
-             b = false;
-           else if (isValid(l.getCol(),l.getRow()+1) && (block[l.getCol()][l.getRow()+1].isEmpty() || canMerge(l.getCol(), l.getRow(), l.getCol(), l.getRow()+1)))
-             b = true;
-           else
-             b = false;
-            
-             break;
-          case WEST: //<>//
-            if(l.getCol() == 0)
-              b = false;
-            else if(isValid(l.getCol()-1, l.getRow()) && (block[l.getCol()-1][l.getRow()].isEmpty() || canMerge(l.getCol(), l.getRow(), l.getCol()-1, l.getRow())))
-              b = true;
-            else
-              b = false;
-
-          break;
-          default:
-            b = false;
-            
-            break;
+    //bored
+    switch(dir){
+      case NORTH:
+        for(int col = 0; col < COLS; col++){
+          for(int row = 1; row < ROWS; row++){
+            if(!block[col][row].isEmpty()){
+              if(block[col][row-1].isEmpty() || canMerge(col,row,col,row-1)){
+                return true;
+              }
+            }
+          }
         }
-        
-        if(b)
-          return b;
-       }
-       return b;
-      }
+        break;
+      case EAST:
+        for(int col = 0; col < COLS-1; col++){
+          for(int row = 0; row < ROWS; row++){
+            if(!block[col][row].isEmpty()){
+              if(block[col+1][row].isEmpty() || canMerge(col,row,col+1,row)){
+                return true;
+              }
+            }
+          }
+        }
+        break;
+     case SOUTH:
+       for(int col = 0; col < COLS; col++){
+          for(int row = 0; row < ROWS-1; row++){
+            if(!block[col][row].isEmpty()){
+              if(block[col][row+1].isEmpty() || canMerge(col,row,col,row+1)){
+                return true;
+              }
+            }
+          }
+        }
+        break;
+    case WEST:
+      for(int col = 1; col < COLS; col++){
+          for(int row = 0; row < ROWS; row++){
+            if(!block[col][row].isEmpty()){
+              if(block[col-1][row].isEmpty() || canMerge(col,row,col-1,row)){
+                return true;
+              }
+            }
+          }
+        }
+        break;
+    default:
+      return false;
+     }
+     return false;
+  } //<>// //<>// //<>// //<>// //<>// //<>// //<>//
 
         // Computes the number of points that the player has scored
         public void computeScore() {
@@ -229,7 +219,7 @@ public class Grid {
         }
 
         public boolean isGameOver() {
-          return canPlaceBlock() && hasCombinableNeighbors() ? false : true;
+          return canPlaceBlock() || hasCombinableNeighbors() ? false : true;
         }
 
         public void showGameOver() {
