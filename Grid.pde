@@ -126,8 +126,8 @@ public class Grid {
     switch(dir){
       case NORTH:
         for(int col = 0; col < COLS; col++){
-          for(int row = 1; row < ROWS; row++){
-            if(!block[col][row].isEmpty()){
+          for(int row = 0; row < ROWS; row++){
+            if(!block[col][row].isEmpty() && isValid(col,row-1)){
               if(block[col][row-1].isEmpty() || canMerge(col,row,col,row-1)){
                 return true;
               }
@@ -136,9 +136,9 @@ public class Grid {
         }
         break;
       case EAST:
-        for(int col = 0; col < COLS-1; col++){
+        for(int col = 0; col < COLS; col++){
           for(int row = 0; row < ROWS; row++){
-            if(!block[col][row].isEmpty()){
+            if(!block[col][row].isEmpty() && isValid(col+1,row)){
               if(block[col+1][row].isEmpty() || canMerge(col,row,col+1,row)){
                 return true;
               }
@@ -148,8 +148,8 @@ public class Grid {
         break;
      case SOUTH:
        for(int col = 0; col < COLS; col++){
-          for(int row = 0; row < ROWS-1; row++){
-            if(!block[col][row].isEmpty()){
+          for(int row = 0; row < ROWS; row++){
+            if(!block[col][row].isEmpty() && isValid(col,row+1)){
               if(block[col][row+1].isEmpty() || canMerge(col,row,col,row+1)){
                 return true;
               }
@@ -158,9 +158,9 @@ public class Grid {
         }
         break;
     case WEST:
-      for(int col = 1; col < COLS; col++){
+      for(int col = 0; col < COLS; col++){
           for(int row = 0; row < ROWS; row++){
-            if(!block[col][row].isEmpty()){
+            if(!block[col][row].isEmpty() && isValid(col-1,row)){
               if(block[col-1][row].isEmpty() || canMerge(col,row,col-1,row)){
                 return true;
               }
