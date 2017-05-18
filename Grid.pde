@@ -94,7 +94,7 @@ public class Grid {
     loc = getEmptyLocations();
     Location l = selectLocation(loc);
 
-    if ((int) 8 * Math.random() <= 6)
+    if ((int) (8 * Math.random()) < 7)
       block[l.getCol()][l.getRow()].setValue(2);
     else
       block[l.getCol()][l.getRow()].setValue(4);
