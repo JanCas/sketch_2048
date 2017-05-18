@@ -31,15 +31,16 @@ public class Grid {
     block[col][row] = b;
   }
 
+  //initializes all the blocks at a value of 0
   public void initBlocks() {
     for (int col = 0; col < COLS; col++)
       for (int row = 0; row < ROWS; row++)
-        setBlock(col, row, 0);
+        setBlock(col, row); //no need to set value and change as the approriate method does it already
   }
 
-  //checks if the values are valid
+  //checks if the values col/row are valid
   public boolean isValid(int col, int row) {
-    return (0 <=  row) && (row <  ROWS) && (0 <= col) && (col < COLS) ? true : false;
+    return (0 <=  row) && (row <  ROWS) && (0 <= col) && (col < COLS);
   }
 
   //swaps 2 blocks
@@ -49,9 +50,9 @@ public class Grid {
     block [col2][row2] = temp;
   }
 
-  //checks if 2 blocks are the Same value
+  //checks if 2 blocks at given col and row have the Same value
   public boolean canMerge(int col1, int row1, int col2, int row2) {
-    return (block[col1][row1].getValue() == block[col2][row2].getValue()) ? true : false;
+    return (block[col1][row1].getValue() == block[col2][row2].getValue());
   }
 
   public void clearChangedFlags() {
@@ -70,7 +71,8 @@ public class Grid {
           return true;
     return false; // stub
   }
-
+  
+  //gets all the empty locations and put it into a 
   public ArrayList<Location> getEmptyLocations() {
     // Put all locations that are currently empty into locs
     ArrayList<Location> locs = new ArrayList<Location>();
@@ -82,10 +84,8 @@ public class Grid {
   }
 
   public Location selectLocation(ArrayList<Location> locs) {
-    if (locs != null)
-      return locs.get((int) (locs.size() * Math.random()));
-    else
-      return null; // stub
+    //if locs != null then give a random value from the array otherwise null
+    return locs != null ? locs.get((int) (locs.size() * Math.random())) : null;
   }
 
   // Randomly select an open location to place a block.
@@ -94,7 +94,7 @@ public class Grid {
     loc = getEmptyLocations();
     Location l = selectLocation(loc);
 
-    if ((int) 8 * Math.random() <= 7)
+    if ((int) 8 * Math.random() <= 6)
       block[l.getCol()][l.getRow()].setValue(2);
     else
       block[l.getCol()][l.getRow()].setValue(4);
@@ -104,14 +104,11 @@ public class Grid {
   public boolean hasCombinableNeighbors() { //<>//
    for(int col = 0; col < COLS; col++){
      for(int row = 0; row < ROWS; row++){
-       if(isValid(col+1,row) && canMerge(col,row,col+1,row))
-         return true;
-       else if(isValid(col-1,row) && canMerge(col,row,col-1,row))
-         return true;
-       else if(isValid(col,row+1) && canMerge(col,row,col,row+1))
-         return true;
-       else if(isValid(col,row-1) && canMerge(col,row,col,row-1))
-         return true;
+       if((isValid(col+1,row) && canMerge(col,row,col+1,row)) ||
+          (isValid(col-1,row) && canMerge(col,row,col-1,row)) ||
+          (isValid(col,row+1) && canMerge(col,row,col,row+1)) ||
+          (isValid(col,row-1) && canMerge(col,row,col,row-1)))
+             return true;
      }
    }
    return false;
@@ -215,7 +212,7 @@ public class Grid {
         public void gridCopy(Grid other) {
           for (int col = 0; col < COLS; col++)
             for(int row = 0; row < ROWS; row++)
-              block[col][row] = other.block[col][row];
+              block[col][row] = other.getBlock(col,row);
         }
 
         public boolean isGameOver() {
