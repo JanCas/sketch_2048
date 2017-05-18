@@ -69,7 +69,7 @@ public class Grid {
       for (int row = 0; row < ROWS; row++)
         if (block[col][row].isEmpty())
           return true;
-    return false; // stub
+    return false;
   }
   
   //gets all the empty locations and put it into a 
@@ -117,53 +117,44 @@ public class Grid {
   // Notice how an enum can be used as a data type
   //
   // This is called ) method  the KeyEvents tab
-  //only checking for one block or checking for more??
   public boolean someBlockCanMoveInDirection(DIR dir) { //<>//
-    //bored
+    
     switch(dir){
-      case NORTH:
+      case NORTH: // only row 1 and subseq can move north
         for(int col = 0; col < COLS; col++){
-          for(int row = 0; row < ROWS; row++){
-            if(!block[col][row].isEmpty() && isValid(col,row-1)){
-              if(block[col][row-1].isEmpty() || canMerge(col,row,col,row-1)){
+          for(int row = 1; row < ROWS; row++){
+            if(!block[col][row].isEmpty() &&
+               (block[col][row-1].isEmpty() || canMerge(col,row,col,row-1)))
                 return true;
-              }
             }
           }
-        }
         break;
       case EAST:
-        for(int col = 0; col < COLS; col++){
+        for(int col = 0; col < COLS-1; col++){
           for(int row = 0; row < ROWS; row++){
-            if(!block[col][row].isEmpty() && isValid(col+1,row)){
-              if(block[col+1][row].isEmpty() || canMerge(col,row,col+1,row)){
+            if(!block[col][row].isEmpty() &&
+               (block[col+1][row].isEmpty() || canMerge(col,row,col+1,row)))
                 return true;
-              }
             }
           }
-        }
         break;
      case SOUTH:
        for(int col = 0; col < COLS; col++){
-          for(int row = 0; row < ROWS; row++){
-            if(!block[col][row].isEmpty() && isValid(col,row+1)){
-              if(block[col][row+1].isEmpty() || canMerge(col,row,col,row+1)){
+          for(int row = 0; row < ROWS-1; row++){
+            if(!block[col][row].isEmpty() &&
+               (block[col][row+1].isEmpty() || canMerge(col,row,col,row+1)))
                 return true;
               }
             }
-          }
-        }
         break;
     case WEST:
-      for(int col = 0; col < COLS; col++){
+      for(int col = 1; col < COLS; col++){
           for(int row = 0; row < ROWS; row++){
-            if(!block[col][row].isEmpty() && isValid(col-1,row)){
-              if(block[col-1][row].isEmpty() || canMerge(col,row,col-1,row)){
+            if(!block[col][row].isEmpty() && 
+               (block[col-1][row].isEmpty() || canMerge(col,row,col-1,row)))
                 return true;
               }
             }
-          }
-        }
         break;
     default:
       return false;
@@ -175,8 +166,8 @@ public class Grid {
         public void computeScore() {
           score = 0;
           for (int col = 0; col < COLS; col++)
-          for (int row = 0; row < ROWS; row++)
-          score += block[col][row].getValue();
+            for (int row = 0; row < ROWS; row++)
+              score += block[col][row].getValue();
         }
 
         public int getScore() {
@@ -216,7 +207,7 @@ public class Grid {
         }
 
         public boolean isGameOver() {
-          return canPlaceBlock() || hasCombinableNeighbors() ? false : true;
+          return !(canPlaceBlock() || hasCombinableNeighbors());
         }
 
         public void showGameOver() {
