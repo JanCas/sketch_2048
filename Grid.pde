@@ -56,8 +56,8 @@ public class Grid {
   }
 
   public void clearChangedFlags() {
-    for (int col = 0; col < COLS; col++) {
-      for (int row = 0; row < ROWS; row++) {
+    for (int col = 0; col < COLS; col++){ 
+      for (int row = 0; row < ROWS; row++){
         block[col][row].setChanged(false);
       }
     }
@@ -102,15 +102,14 @@ public class Grid {
 
   // Are there any adjacent blocks that contain the same value?
   public boolean hasCombinableNeighbors() { //<>//
-   for(int col = 0; col < COLS; col++){
-     for(int row = 0; row < ROWS; row++){
+   for(int col = 0; col < COLS; col++)
+     for(int row = 0; row < ROWS; row++)
        if((isValid(col+1,row) && canMerge(col,row,col+1,row)) ||
           (isValid(col-1,row) && canMerge(col,row,col-1,row)) ||
           (isValid(col,row+1) && canMerge(col,row,col,row+1)) ||
           (isValid(col,row-1) && canMerge(col,row,col,row-1)))
              return true;
-     }
-   }
+     
    return false;
   }
 
@@ -121,40 +120,32 @@ public class Grid {
     
     switch(dir){
       case NORTH: // only row 1 and subseq can move north
-        for(int col = 0; col < COLS; col++){
-          for(int row = 1; row < ROWS; row++){
+        for(int col = 0; col < COLS; col++)
+          for(int row = 1; row < ROWS; row++)
             if(!block[col][row].isEmpty() &&
                (block[col][row-1].isEmpty() || canMerge(col,row,col,row-1)))
                 return true;
-            }
-          }
         break;
       case EAST:
-        for(int col = 0; col < COLS-1; col++){
-          for(int row = 0; row < ROWS; row++){
+        for(int col = 0; col < COLS-1; col++)
+          for(int row = 0; row < ROWS; row++)
             if(!block[col][row].isEmpty() &&
                (block[col+1][row].isEmpty() || canMerge(col,row,col+1,row)))
                 return true;
-            }
-          }
         break;
      case SOUTH:
-       for(int col = 0; col < COLS; col++){
-          for(int row = 0; row < ROWS-1; row++){
+       for(int col = 0; col < COLS; col++)
+          for(int row = 0; row < ROWS-1; row++)
             if(!block[col][row].isEmpty() &&
                (block[col][row+1].isEmpty() || canMerge(col,row,col,row+1)))
                 return true;
-              }
-            }
         break;
     case WEST:
-      for(int col = 1; col < COLS; col++){
-          for(int row = 0; row < ROWS; row++){
+      for(int col = 1; col < COLS; col++)
+          for(int row = 0; row < ROWS; row++)
             if(!block[col][row].isEmpty() && 
                (block[col-1][row].isEmpty() || canMerge(col,row,col-1,row)))
                 return true;
-              }
-            }
         break;
     default:
       return false;
